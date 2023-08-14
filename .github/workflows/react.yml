@@ -1,0 +1,58 @@
+name: React CI
+
+on: push
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+              ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run unit tests
+        run: yarn test --coverage --passWithNoTests
+        env:
+          CI: false
+
+      - name: Report Coverage
+        uses: davelosert/vitest-coverage-report-action@v2
+        if: always() # Also generate the report if tests are failing
+        with:
+          working-directory: packages/client
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Check Cypress tests exist
+        id: check_cypress_tests
+        uses: andstor/file-existence-action@v2
+        with:
+          files: 'packages/client/cypress/e2e/'
+
+      - name: Install and run Cypress tests
+        uses: cypress-io/github-action@v5
+        if: steps.check_cypress_tests.outputs.files_exists == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          project: packages/client
+          build: yarn run build --if-present
+          start: yarn start
+          wait-on: 'http://localhost:3000'

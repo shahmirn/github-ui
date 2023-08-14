@@ -1,0 +1,22 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"yarn workspace server dev\" \"yarn workspace client dev --no-open\"",
+    "start": "npx --yes concurrently \"npm run start --workspace=server\" \"npm run start --workspace=client\"",
+    "build": "concurrently \"yarn workspace server build\" \"yarn workspace client build\"",
+    "preview": "concurrently \"yarn workspace server preview\" \"yarn workspace client preview --no-open\"",
+    "test": "yarn workspace client test",
+    "e2e": "yarn workspace client e2e",
+    "e2e:run": "yarn workspace client e2e:run",
+    "format": "concurrently \"yarn workspace server format\" \"yarn workspace client format\"",
+    "lint": "concurrently \"yarn workspace server lint\" \"yarn workspace client lint\"",
+    "type-check": "concurrently \"yarn workspace server type-check\" \"yarn workspace client type-check\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
