@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "npx --yes serve -s -l 4173 build",
+    "start": "NODE_ENV=production npx --yes serve -s -l 4173 build",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",

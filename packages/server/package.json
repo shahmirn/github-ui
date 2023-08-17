@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch ./index.ts",
-    "start": "npx --yes cross-env CLIENT_PORT=4173 node ./build/index.js",
+    "start": "NODE_ENV=production npx --yes cross-env CLIENT_PORT=4173 node ./build/index.js",
     "build": "esbuild ./index.ts --bundle --platform=node --outfile=build/index.js",
     "preview": "cross-env CLIENT_PORT=4173 node ./build/index.js",
     "format": "prettier --write .",

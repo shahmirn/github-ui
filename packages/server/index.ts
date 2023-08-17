@@ -95,5 +95,7 @@ function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr?.port;
   console.debug('Listening on ' + bind);
-  open(`http://localhost:${serverPort}`);
+  if (process.env.NODE_ENV !== 'production') {
+    open(`http://localhost:${serverPort}`);
+  }
 }
