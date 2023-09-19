@@ -1,4 +1,4 @@
-# Real Brokerage Inc - Front End Interview Project
+# Front End Interview Project
 
 ## The Project
 
