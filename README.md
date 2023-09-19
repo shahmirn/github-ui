@@ -57,8 +57,8 @@ When I click on a user, I will be taken to a dedicated user detail page. On that
 
 ## Running locally
 
-- git clone https://github.com/codescreen/CodeScreen_ugvxtigm.git
-- cd CodeScreen_ugvxtigm
+- git clone https://github.com/shahmirn/github-ui.git
+- cd github-ui
 - npm install
 - Optional: Set the GITHUB_TOKEN environment variable
   - Generate a fine-grained personal access token
